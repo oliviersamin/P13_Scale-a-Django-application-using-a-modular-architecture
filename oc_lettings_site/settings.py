@@ -46,7 +46,11 @@ ROOT_URLCONF = 'oc_lettings_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'oc_lettings_site', 'templates'),
+                 os.path.join(BASE_DIR, 'lettings', 'templates'),
+                 os.path.join(BASE_DIR, 'profiles', 'templates'),
+
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,6 +62,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 

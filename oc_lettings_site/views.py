@@ -15,7 +15,8 @@ def index(request):
     :param request:
     :return:
     """
-    return render(request, 'index.html')
+    print("\n####### DANS INDEX DE HOME")
+    return render(request, 'oc_lettings_site/index.html')
 
 
 # Aenean leo magna, vestibulum et tincidunt fermentum, consectetur quis velit. Sed non placerat

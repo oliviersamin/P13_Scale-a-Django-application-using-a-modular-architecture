@@ -1,17 +1,28 @@
-<title>Profiles</title>
-<h1>Profiles</h1>
-{% if profiles_list %}
-    <ul>
-    {% for profile in profiles_list %}
-        <li>
-            <a href="{% url 'profiles:profile' username=profile.user.username %}">
-                {{ profile.user.username }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No profiles are available.</p>
-{% endif %}
-<div><a href="{% url 'index' %}">Home</a></div>
-<div><a href="{% url 'lettings:index' %}">Lettings</a></div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profiles</title>
+    <link rel="stylesheet" href="{% static '/profiles/index.css' %}" type="text/css">
+</head>
+<body>
+    <img src="{% static 'profiles/fond.jpg' %}" alt="" class="background">
+    <h1>Profiles</h1>
+    {% if profiles_list %}
+        <ul>
+        {% for profile in profiles_list %}
+            <li>
+                <a href="{% url 'profiles:profile' username=profile.user.username %}">
+                    {{ profile.user.username }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No profiles are available.</p>
+    {% endif %}
+    <div><a href="{% url 'index' %}">Home</a></div>
+    <div><a href="{% url 'lettings:index' %}">Lettings</a></div>
+</body>
+</html>

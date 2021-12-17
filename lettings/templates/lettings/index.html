@@ -1,17 +1,29 @@
-<title>Lettings</title>
-<h1>Lettings</h1>
-{% if lettings_list %}
-    <ul>
-    {% for letting in lettings_list %}
-        <li>
-            <a href="{% url 'lettings:letting' letting_id=letting.id %}">
-                {{ letting.title }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No lettings are available.</p>
-{% endif %}
-<div><a href="{% url 'index' %}">Home</a></div>
-<div><a href="{% url 'profiles:index' %}">Profiles</a></div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lettings</title>
+    <link rel="stylesheet" href="{% static '/lettings/index.css' %}" type="text/css">
+</head>
+<body>
+    <img src="{% static 'lettings/fond.jpg' %}" alt="" class="background">
+    <h1>Lettings</h1>
+    {% if lettings_list %}
+        <ul>
+        {% for letting in lettings_list %}
+            <li>
+                <a href="{% url 'lettings:letting' letting_id=letting.id %}">
+                    {{ letting.title }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No lettings are available.</p>
+    {% endif %}
+    <div><a href="{% url 'index' %}">Home</a></div>
+    <div><a href="{% url 'profiles:index' %}">Profiles</a></div>
+
+</body>
+</html>

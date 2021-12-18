@@ -1,9 +1,3 @@
-/*@font-face{
-    font-family: 'Apple Chancery';
-    src: url('Apple Chancery.ttf');
-}
-*/
-
 .background{
     position: absolute;
     left: 0;
@@ -18,16 +12,7 @@
     left: 100px;
 }
 
-#profiles{
-    position: absolute;
-    left: 200px;
-    top:450px;
-    color: black;
-    font-size: 25px;
-
-}
-
-#lettings{
+#home{
     position: absolute;
     left: 800px;
     top:450px;
@@ -35,16 +20,46 @@
     font-size: 25px;
 }
 
+#home:hover{
+    color: blue;
+}
+
+#profiles{
+    position: absolute;
+    left: 200px;
+    top:450px;
+    color: black;
+    font-size: 25px;
+}
+
+#profiles:hover{
+    color: blue;
+}
+
+.letting{
+    position: relative;
+    left: 80px;
+    top:100px;
+    color: black;
+    font-size: 15px;
+}
+
+.letting_link{
+    position: relative;
+    left: 10px;
+    top:0px;
+    color: black;
+    font-size: 15px;
+}
+
+.letting_link:hover{
+    color: blue;
+}
+
 h1{
     color: red;
     position: absolute;
     top: 0px;
-    left: 400px;
-}
-
-#logo{
-    position: absolute;
-    left: 450px;
-    top: 80px;
+    left: 500px;
 }
 

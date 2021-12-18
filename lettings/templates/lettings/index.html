@@ -12,8 +12,8 @@
     {% if lettings_list %}
         <ul>
         {% for letting in lettings_list %}
-            <li>
-                <a href="{% url 'lettings:letting' letting_id=letting.id %}">
+            <li class="letting">
+                <a class="letting_link" href="{% url 'lettings:letting' letting_id=letting.id %}">
                     {{ letting.title }}
                 </a>
             </li>
@@ -22,8 +22,8 @@
     {% else %}
         <p>No lettings are available.</p>
     {% endif %}
-    <div><a href="{% url 'index' %}">Home</a></div>
-    <div><a href="{% url 'profiles:index' %}">Profiles</a></div>
+    <div><a id="home" href="{% url 'index' %}">Home</a></div>
+    <div><a id="profiles" href="{% url 'profiles:index' %}">Profiles</a></div>
 
 </body>
 </html>

@@ -27,12 +27,20 @@
 
 }
 
+#profiles:hover{
+    color: blue;
+}
+
 #lettings{
     position: absolute;
     left: 800px;
     top:450px;
     color: black;
     font-size: 25px;
+}
+
+#lettings:hover{
+    color: blue;
 }
 
 h1{

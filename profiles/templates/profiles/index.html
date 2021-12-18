@@ -12,8 +12,8 @@
     {% if profiles_list %}
         <ul>
         {% for profile in profiles_list %}
-            <li>
-                <a href="{% url 'profiles:profile' username=profile.user.username %}">
+            <li class="profile">
+                <a class="profile_link" href="{% url 'profiles:profile' username=profile.user.username %}">
                     {{ profile.user.username }}
                 </a>
             </li>
@@ -22,7 +22,7 @@
     {% else %}
         <p>No profiles are available.</p>
     {% endif %}
-    <div><a href="{% url 'index' %}">Home</a></div>
-    <div><a href="{% url 'lettings:index' %}">Lettings</a></div>
+    <div><a id="home" href="{% url 'index' %}">Home</a></div>
+    <div><a id="lettings"  href="{% url 'lettings:index' %}">Lettings</a></div>
 </body>
 </html>

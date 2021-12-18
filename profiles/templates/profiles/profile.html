@@ -1,9 +1,22 @@
-<title>{{ profile.user.username }}</title>
-<h1>{{ profile.user.username }}</h1>
-<p>First name: {{ profile.user.first_name }}</p>
-<p>Last name: {{ profile.user.last_name }}</p>
-<p>Email: {{ profile.user.email }}</p>
-<p>Favorite city: {{ profile.favorite_city }}</p>
-<div><a href="{% url 'profiles:index' %}">Back</a></div>
-<div><a href="{% url 'index' %}">Home</a></div>
-<div><a href="{% url 'lettings:index' %}">Lettings</a></div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ profile.user.username }}</title>
+    <link rel="stylesheet" href="{% static '/profiles/profile.css' %}" type="text/css">
+</head>
+<body>
+    <img src="{% static 'profiles/fond.jpg' %}" alt="" class="background">
+    <h1>{{ profile.user.username }}</h1>
+    <div id="details">
+        <p>First name: {{ profile.user.first_name }}</p>
+        <p>Last name: {{ profile.user.last_name }}</p>
+        <p>Email: {{ profile.user.email }}</p>
+        <p>Favorite city: {{ profile.favorite_city }}</p>
+    </div>
+    <div><a id="index_profiles" href="{% url 'profiles:index' %}">Back</a></div>
+    <div><a id="home"  href="{% url 'index' %}">Home</a></div>
+    <div><a id="index_lettings"  href="{% url 'lettings:index' %}">Lettings</a></div>
+</body>
+</html>

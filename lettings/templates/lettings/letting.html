@@ -1,8 +1,21 @@
-<title>{{ title }}</title>
-<h1>{{ title }}</h1>
-<p>{{ address.number }} {{ address.street }}</p>
-<p>{{ address.city }}, {{ address.state }} {{ address.zip_code }}</p>
-<p>{{ address.country_iso_code }}</p>
-<div><a href="{% url 'lettings:index' %}">Back</a></div>
-<div><a href="{% url 'index' %}">Home</a></div>
-<div><a href="{% url 'profiles:index' %}">Profiles</a></div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static '/lettings/letting.css' %}" type="text/css">
+</head>
+<body>
+    <img src="{% static 'lettings/fond.jpg' %}" alt="" class="background">
+    <h1>{{ title }}</h1>
+    <div id="details">
+        <p>{{ address.number }} {{ address.street }}</p>
+        <p>{{ address.city }}, {{ address.state }} {{ address.zip_code }}</p>
+        <p>{{ address.country_iso_code }}</p>
+    </div>
+    <div><a id="index_lettings" href="{% url 'lettings:index' %}">Back</a></div>
+    <div><a id="home" href="{% url 'index' %}">Home</a></div>
+    <div><a id="index_profiles"  href="{% url 'profiles:index' %}">Profiles</a></div>
+</body>
+</html>

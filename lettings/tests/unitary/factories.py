@@ -3,7 +3,6 @@ This file contains all the factories necessary to create fake instances of model
 """
 
 import factory.fuzzy
-from django.db import models
 from lettings.models import Letting, Address
 
 
@@ -30,5 +29,6 @@ class LettingFactory(factory.django.DjangoModelFactory):
     title = factory.fuzzy.FuzzyText(prefix="test_")
     # SubFactory is used to replace the OneToOne link in models between letting and address
     address = factory.SubFactory(AddressFactory)
+
     class Meta:
         model = Letting

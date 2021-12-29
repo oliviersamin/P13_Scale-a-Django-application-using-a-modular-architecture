@@ -16,6 +16,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
+
 class ProfileFactory(factory.django.DjangoModelFactory):
     """
     create fake instances of the Profile model

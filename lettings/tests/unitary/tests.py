@@ -1,9 +1,10 @@
 """ tests for views corresponding to lettings module"""
 import pytest
 from django.urls import reverse
-from lettings.models import Letting
+from lettings.tests.unitary.factories import LettingFactory
 
-@pytest.mark.django_db(transaction=True)
+
+@pytest.mark.django_db
 def test_index(client):
     url = reverse('lettings:index')
     response = client.get(url)
@@ -13,17 +14,17 @@ def test_index(client):
     assert expected_title in data
 
 
-@pytest.mark.django_db(transaction=True, reset_sequences=True)
+@pytest.mark.django_db
 def test_letting(client):
-    # url = reverse('lettings:letting', args=[2])
-    # response = client.get(url)
-    test = Letting.objects.all()
-    print("\n########################\n")
-    print(test)
-    # data = response.content.decode()
-    # print("\n#########  DATA LETTING WITH ARG ##########\n")
-    # print(data)
-    # print("\n######################")
-    # expected_title = "Oceanview Retreat"
-    # assert response.status_code == 200
-    # assert expected_title in data
+    """
+    Usage of the LettingFactory class created in factories.py (source = "Django crash course")
+    It create a fake instance of the desired model to be able to perform a QuerySet
+    """
+
+    test_letting = LettingFactory()
+    url = reverse('lettings:letting', args=[test_letting.id])
+    response = client.get(url)
+    data = response.content.decode()
+    expected_title = "<title>{}</title>".format(test_letting.title)
+    assert response.status_code == 200
+    assert expected_title in data

@@ -22,10 +22,6 @@ jobs:
     docker:
       - image: cimg/python:3.8
     steps:
-      - python/install-packages:
-          pkg-manager: pip
-          # app-dir: ~/project/package-directory/  # If you're requirements.txt isn't in the root directory.
-          # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
       - run:
           name: Run Linting
           command: flake8 --exclude=env,migrations

@@ -72,3 +72,6 @@ workflows:
       - tests:
           requires:
             - linting
+      - build_docker_image:
+          requires:
+            - tests

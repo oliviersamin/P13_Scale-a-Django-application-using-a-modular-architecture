@@ -54,7 +54,7 @@ jobs:
           name: build application Docker image
           command:
             TAG=$CIRCLE_BUILD_NUM
-            docker build -t oliviersamin/P13_Scale-a-Django-application-using-a-modular-architecture
+            docker build -t olivierfuerte/tests_commandes
 
 
 

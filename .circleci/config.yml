@@ -48,14 +48,16 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
-          name: Build application Docker image
+          name: login to docker
           command:
-            docker login --username olivierfuerte --password r8oDfc5RXsfbGnRXqNwc 
+            docker login --username olivierfuerte --password r8oDfc5RXsfbGnRXqNwc
+      - run:
+          name: build application Docker image
+          command:
             docker build -t olivierfuerte/tests_commandes:$CIRCLE_BRANCH
       - run:
           name: Push docker image to DockerHub
           command:
-            docker login --username olivierfuerte --password r8oDfc5RXsfbGnRXqNwc
             docker push 
 
 

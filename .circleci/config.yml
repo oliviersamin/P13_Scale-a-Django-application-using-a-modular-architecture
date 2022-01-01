@@ -12,7 +12,7 @@ orbs:
   python: circleci/python@1.5.0
 
 jobs:
-  build:
+  compile:
     docker:
       - image: cimg/python:3.8
     steps:
@@ -39,16 +39,36 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest
+  build_docker_image:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - setup_remote_docker
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: Build application Docker image
+          command:
+            docker login --username olivierfuerte --password r8oDfc5RXsfbGnRXqNwc 
+            docker build -t olivierfuerte/tests_commandes:$CIRCLE_BRANCH
+      - run:
+          name: Push docker image to DockerHub
+          command:
+            docker login --username olivierfuerte --password r8oDfc5RXsfbGnRXqNwc
+            docker push 
+
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   project_13: 
     jobs:
-      - build
+      - compile
       - linting:
           requires:
-            - build
+            - compile
       - tests:
           requires:
             - linting

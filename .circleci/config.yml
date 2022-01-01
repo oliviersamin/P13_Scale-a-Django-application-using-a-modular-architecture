@@ -51,10 +51,10 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
-          name: build application Docker image
+          name: build image from application
           command:
             TAG=$CIRCLE_BUILD_NUM
-            docker build -t olivierfuerte/tests_commandes
+            docker build --cache-from=. -t olivierfuerte/tests_commandes:$TAG
 
 
 

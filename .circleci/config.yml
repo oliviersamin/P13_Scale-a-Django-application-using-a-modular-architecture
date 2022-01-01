@@ -54,7 +54,7 @@ jobs:
       - run:
           name: build application Docker image
           command:
-            docker build -t olivierfuerte/tests_commandes:$CIRCLE_BRANCH
+            docker build olivierfuerte/tests_commandes:$CIRCLE_BRANCH
       - run:
           name: Push docker image to DockerHub
           command:

@@ -12,13 +12,7 @@ orbs:
   python: circleci/python@1.5.0
 
 jobs:
-  compile:
-    docker:
-      - image: cimg/python:3.8
-    steps:
-      - checkout
-
-  linting:
+  compile-linting-tests:
     docker:
       - image: cimg/python:3.8
     steps:
@@ -33,18 +27,11 @@ jobs:
       - run:
           name: Run Linting
           command: flake8 --exclude=env,migrations
-  tests:
-    docker:
-      - image: cimg/python:3.8
-    steps:
-      - checkout
-      - restore_cache:
-          key:
-            p13-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest
+
   build_docker_image:
     docker:
       - image: cimg/python:3.8
@@ -54,13 +41,12 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - restore_cache:
+          key:
+            p13-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}
+
       - python/install-packages:
           pkg-manager: pip
-      - save_cache:
-          paths:
-            - /cache
-          key: 
-            p13-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: build image from application
           command:
@@ -75,7 +61,4 @@ jobs:
 workflows:
   project_13: 
     jobs:
-      - linting
-      - tests:
-          requires:
-            - linting
+      - compile-linting-tests

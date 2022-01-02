@@ -48,7 +48,7 @@ jobs:
           name: build customized image
           command:
             TAG=$CIRCLE_BUILD_NUM
-            docker build {{ .Branch }} -t test_build
+            docker build -t olivierfuerte/tests_commandes .
 
 
 

@@ -48,6 +48,9 @@ jobs:
           name: build customized image
           command:
             docker build -t olivierfuerte/tests_commandes:$CIRCLE_SHA1 .
+      - run:
+          name: push customized image
+          command:
             docker push olivierfuerte/tests_commandes:$CIRCLE_SHA1
 
 

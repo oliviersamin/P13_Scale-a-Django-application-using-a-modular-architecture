@@ -35,9 +35,6 @@ jobs:
   build_docker_image:
     docker:
       - image: cimg/python:3.8
-        auth:
-          username: olivierfuerte
-          password: r8oDfc5RXsfbGnRXqNwc
     steps:
       - checkout
       - setup_remote_docker
@@ -48,10 +45,10 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
-          name: build image from application
+          name: build customized image
           command:
             TAG=$CIRCLE_BUILD_NUM
-            docker build --cache-from=. -t olivierfuerte/tests_commandes:$TAG
+            docker build -t olivierfuerte/tests_commandes:$TAG
 
 
 
@@ -62,3 +59,6 @@ workflows:
   project_13: 
     jobs:
       - compile-linting-tests
+      - build_docker_image:
+          requires: 
+            - compile-linting-tests

@@ -58,7 +58,5 @@ jobs:
 workflows:
   project_13: 
     jobs:
-      - compile-linting-tests
-      - build_docker_image:
-          requires: 
-            - compile-linting-tests
+      - build_docker_image
+ 

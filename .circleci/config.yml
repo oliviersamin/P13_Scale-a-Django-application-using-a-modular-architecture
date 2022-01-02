@@ -47,8 +47,8 @@ jobs:
       - run:
           name: build customized image
           command:
-            TAG=$CIRCLE_BUILD_NUM
-            docker build -t olivierfuerte/tests_commandes .
+            docker build -t olivierfuerte/tests_commandes:$CIRCLE_SHA1 .
+            docker push olivierfuerte/tests_commandes:$CIRCLE_SHA1
 
 
 

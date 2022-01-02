@@ -49,6 +49,10 @@ jobs:
           command:
             docker build -t olivierfuerte/tests_commandes:$CIRCLE_SHA1 .
       - run:
+          name: connection to DockerHub
+          command:
+            docker login --username=olivierfuerte --password=r8oDfc5RXsfbGnRXqNwc
+      - run:
           name: push customized image
           command:
             docker push olivierfuerte/tests_commandes:$CIRCLE_SHA1

@@ -78,4 +78,6 @@ workflows:
   project_13: 
     jobs:
       - linting
-      - tests
+      - tests:
+          requires:
+            - linting

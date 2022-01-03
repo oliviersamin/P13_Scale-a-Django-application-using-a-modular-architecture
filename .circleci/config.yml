@@ -32,7 +32,7 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: pytest
 
-  build_docker_image:
+  build_and_push_docker_image:
     docker:
       - image: cimg/python:3.8
     steps:
@@ -48,19 +48,12 @@ jobs:
           name: build application image
           command:
             docker build -t olivierfuerte/p13_ci_cd:$CIRCLE_SHA1 .
-
-  push_docker_image:
-    docker:
-      - image: cimg/python:3.8
-    steps:
-      - setup_remote_docker
       - run:
           name: connection to DockerHub
           command:
             docker login --username=olivierfuerte --password=r8oDfc5RXsfbGnRXqNwc
-
       - run:
-          name: push customized image
+          name: push application image
           command:
             docker push olivierfuerte/p13_ci_cd:$CIRCLE_SHA1
 
@@ -72,8 +65,5 @@ jobs:
 workflows:
   project_13: 
     jobs:
-      - build_docker_image
-      - push_docker_image:
-          requires:
-            - build_docker_image
+      - build_and_push_docker_image
  

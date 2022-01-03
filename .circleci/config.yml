@@ -47,7 +47,7 @@ jobs:
       - run:
           name: build customized image
           command:
-            docker build -t olivierfuerte/tests_commandes:$CIRCLE_SHA1 .
+            docker build -t olivierfuerte/p13_ci_cd:$CIRCLE_SHA1 .
       - run:
           name: connection to DockerHub
           command:

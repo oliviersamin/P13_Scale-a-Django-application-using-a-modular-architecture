@@ -45,7 +45,7 @@ jobs:
       - python/install-packages:
           pkg-manager: pip
       - run:
-          name: build customized image
+          name: build application image
           command:
             docker build -t olivierfuerte/p13_ci_cd:$CIRCLE_SHA1 .
 
@@ -53,6 +53,7 @@ jobs:
     docker:
       - image: cimg/python:3.8
     steps:
+      - setup_remote_docker
       - run:
           name: connection to DockerHub
           command:

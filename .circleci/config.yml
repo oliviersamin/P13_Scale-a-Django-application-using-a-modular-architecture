@@ -52,6 +52,11 @@ jobs:
           name: connection to DockerHub
           command:
             docker login --username=olivierfuerte --password=r8oDfc5RXsfbGnRXqNwc
+
+  push_docker_image:
+    docker:
+      - image: cimg/python:3.8
+    steps:
       - run:
           name: push customized image
           command:
@@ -66,4 +71,7 @@ workflows:
   project_13: 
     jobs:
       - build_docker_image
+      - push_docker_image:
+          requires:
+            - build_docker_image
  

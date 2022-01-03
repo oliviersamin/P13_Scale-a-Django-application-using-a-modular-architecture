@@ -55,7 +55,7 @@ jobs:
       - run:
           name: push customized image
           command:
-            docker push olivierfuerte/tests_commandes:$CIRCLE_SHA1
+            docker push olivierfuerte/p13_ci_cd:$CIRCLE_SHA1
 
 
 

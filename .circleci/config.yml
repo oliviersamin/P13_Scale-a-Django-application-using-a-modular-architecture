@@ -47,21 +47,21 @@ jobs:
       - run:
           name: build application image
           command:
-            docker build -t olivierfuerte/p13_ci_cd:$CIRCLE_SHA1 .
+            docker build -t $Docker_tag_image:$CIRCLE_SHA1 .
       - run:
           name: connection to DockerHub
           command:
-            docker login --username=olivierfuerte --password=r8oDfc5RXsfbGnRXqNwc
+            docker login --username=$Docker_username --password=$Docker_password
       - run:
           name: push application image to Docker Hub
           command:
-            docker push olivierfuerte/p13_ci_cd:$CIRCLE_SHA1
+            docker push $Docker_tag_image:$CIRCLE_SHA1
       - run:
           name: deploy application to Heroku
           command:
-            docker tag olivierfuerte/p13_ci_cd:$CIRCLE_SHA1 registry.heroku.com/p13-oc-test
-            docker login --username=olivierfuerte --password=$(heroku auth:token) registry.heroku.com
-            docker push registry.heroku.com/p13-oc-test
+            docker tag $Docker_tag_image:$CIRCLE_SHA1 $Heroku_repo
+            docker login --username=$Docker_username --password=$(heroku auth:token) registry.heroku.com
+            docker push $Heroku_repo
 
 
 # Invoke jobs via workflows
@@ -71,6 +71,7 @@ workflows:
     jobs:
       - compile-linting-tests
       - build_and_push_docker_image:
+          context: Basic secured data
           filters:
             branches:
               only:

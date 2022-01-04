@@ -53,11 +53,20 @@ jobs:
           command:
             docker login --username=olivierfuerte --password=r8oDfc5RXsfbGnRXqNwc
       - run:
-          name: push application image
+          name: push application image to Docker Hub
           command:
             docker push olivierfuerte/p13_ci_cd:$CIRCLE_SHA1
-
-
+  deploy_to_Heroku:
+    machine
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: deploy application to Heroku
+          command:
+            docker tag olivierfuerte/p13_ci_cd:$CIRCLE_SHA1 registry.heroku.com/p13-oc-test
+            docker login --username=olivierfuerte --password=$(heroku auth:token) registry.heroku.com
+            docker push registry.heroku.com/p13-oc-test
 
 
 # Invoke jobs via workflows

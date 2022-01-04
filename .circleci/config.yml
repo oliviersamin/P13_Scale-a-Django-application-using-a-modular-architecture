@@ -30,7 +30,10 @@ jobs:
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
-          command: pytest
+          command: 
+            pytest
+
+
 
   build_and_push_docker_image:
     docker:
@@ -56,12 +59,6 @@ jobs:
           name: push application image to Docker Hub
           command:
             docker push $Docker_tag_image:$CIRCLE_SHA1
-      - run:
-          name: deploy application to Heroku
-          command:
-            docker tag $Docker_tag_image:$CIRCLE_SHA1 $Heroku_repo
-            docker login --username=$Docker_username --password=$(heroku auth:token) registry.heroku.com
-            docker push $Heroku_repo
 
 
 # Invoke jobs via workflows
@@ -75,7 +72,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - pipeline_CI_CD
           requires:
             - compile-linting-tests
             

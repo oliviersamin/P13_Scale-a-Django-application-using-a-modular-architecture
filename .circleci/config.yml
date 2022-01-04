@@ -56,11 +56,6 @@ jobs:
           name: push application image to Docker Hub
           command:
             docker push olivierfuerte/p13_ci_cd:$CIRCLE_SHA1
-  deploy_to_Heroku:
-    machine
-    steps:
-      - checkout
-      - setup_remote_docker
       - run:
           name: deploy application to Heroku
           command:

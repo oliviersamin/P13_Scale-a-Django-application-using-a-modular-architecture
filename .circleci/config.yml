@@ -35,6 +35,7 @@ jobs:
           name: show coverage
           command:
             ls
+            coverage report
 
 
 

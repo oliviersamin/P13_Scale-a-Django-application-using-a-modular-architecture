@@ -34,7 +34,7 @@ jobs:
       - run:
           name: show coverage
           command:
-            pwd
+            ls
 
 
 
@@ -75,7 +75,7 @@ workflows:
           filters:
             branches:
               only:
-                - pipeline_CI_CD
+                - main
           requires:
             - compile-linting-tests
             

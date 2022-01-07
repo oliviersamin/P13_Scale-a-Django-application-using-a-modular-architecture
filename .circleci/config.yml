@@ -34,10 +34,7 @@ jobs:
       - run:
           name: show coverage
           command:
-            ls
             coverage report
-
-
 
   build_and_push_docker_image:
     docker:

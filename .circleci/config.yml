@@ -9,6 +9,7 @@ orbs:
   # so you dont have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.5.0
+  heroku: circleci/heroku@1.2.6
 
 jobs:
   compile-linting-tests:
@@ -36,7 +37,7 @@ jobs:
 #          command:
 #            coverage report
 
-  build_and_push_docker_image_to_Heroku:
+  build_and_push_docker_image:
     docker:
       - image: cimg/python:3.8
     steps:
@@ -68,26 +69,8 @@ jobs:
           name: retag image for Heroku
           command:
             docker tag $Docker_tag_image:$CIRCLE_SHA1 $Heroku_tag
-      - run:
-          name: Login to Heroku registery
-          command:
-            docker login --username=olivierfuerte --password=$(heroku auth:token) registry.heroku.com
-      - run:
-          name: push the image to Heroku
-          command:
-            docker push $Heroku_tag
-      - run:
-          name: release the Heroku image
-          command:
-            heroku container:release web -a $Heroku_repo
-      - run:
-          name: launch the app on Heroku
-          command:
-            heroku open -a $Heroku_repo
-      - run:
-          name: display the log
-          command:
-            heroku logs --tail -a $Heroku_repo
+
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -95,7 +78,7 @@ workflows:
   project_13: 
     jobs:
       - compile-linting-tests
-      - build_and_push_docker_image_to_Heroku:
+      - build_and_push_docker_image:
           context: Basic secured data
           filters:
             branches:
@@ -103,4 +86,12 @@ workflows:
                 - pipeline_CI_CD
           requires:
             - compile-linting-tests
-            
+      - heroku/push-docker-image:
+          context: Basic secured data
+          filters:
+            branches:
+              only:
+                - pipeline_CI_CD
+          requires:
+            - build_and_push_docker_image
+           

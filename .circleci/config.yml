@@ -61,15 +61,6 @@ jobs:
           name: push application image to Docker Hub
           command:
             docker push $Docker_tag_image:$CIRCLE_SHA1
-      - run:
-          name: reset of the heroku image in the repo
-          command:
-            heroku repo:reset -a $Heroku_repo
-      - run:
-          name: retag image for Heroku
-          command:
-            docker tag $Docker_tag_image:$CIRCLE_SHA1 $Heroku_tag
-
 
 
 # Invoke jobs via workflows

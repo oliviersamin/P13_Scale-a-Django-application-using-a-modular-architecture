@@ -31,10 +31,10 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: 
             pytest
-      - run:
-          name: show coverage
-          command:
-            coverage report
+#      - run:
+#          name: show coverage
+#          command:
+#            coverage report
 
   build_and_push_docker_image:
     docker:
@@ -73,7 +73,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - pipeline_CI_CD
           requires:
             - compile-linting-tests
             

@@ -65,8 +65,8 @@ jobs:
   deploy_to_Heroku:
     executor: heroku/default
     steps:
-      - setup_remote_docker:
-          docker_layer_caching: false
+      - setup_remote_docker
+      - heroku/install
       - checkout
       - run:
           name: reset the app folder

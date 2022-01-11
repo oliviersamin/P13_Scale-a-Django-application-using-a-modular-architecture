@@ -78,7 +78,7 @@ jobs:
             heroku container:login 
   heroku/push-docker-image:
     executor: 
-      docker-publisher
+      machine
     steps:
       - setup_remote_docker:
           docker_layer_caching: false

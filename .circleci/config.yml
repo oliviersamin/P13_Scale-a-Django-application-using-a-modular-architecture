@@ -65,9 +65,23 @@ jobs:
   deploy_to_Heroku:
     executor: heroku/default
     steps:
+      - setup_remote_docker:
+          docker_layer_caching: false
       - checkout
-      - heroku/install
-          
+      - run:
+          name: reset the app folder
+          command:
+            heroku repo:reset -a $HEROKU_APP_NAME
+      - run:
+          name: login to Heroku Docker registery image
+          command:
+            heroku container:login 
+  heroku/push-docker-image:
+    executor: 
+      docker-publisher
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: false
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

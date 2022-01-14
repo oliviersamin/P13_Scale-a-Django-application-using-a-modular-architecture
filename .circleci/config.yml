@@ -90,7 +90,9 @@ jobs:
 workflows:
   project_13: 
     jobs:
-      - compile-linting-tests
+      - compile-linting-tests:          
+          context: Basic secured data
+          
       - build_and_push_docker_image:
           context: Basic secured data
           filters:

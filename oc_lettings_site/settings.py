@@ -119,7 +119,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 sentry_sdk.init(
-    dsn=$DSN_URL,
+    # dsn=os.environ['DSN_URL'],
+    dsn="https://4acffdc0554c4d44a80f6ab06e5c0d7b@o1114418.ingest.sentry.io/6145602"
     integrations=[DjangoIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%

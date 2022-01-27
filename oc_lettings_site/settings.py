@@ -141,5 +141,5 @@ try:
         # something more human-readable.
         # release="myapp@1.0.0",
     )
-except:
+except sentry_sdk.utils.BadDsn:
     pass

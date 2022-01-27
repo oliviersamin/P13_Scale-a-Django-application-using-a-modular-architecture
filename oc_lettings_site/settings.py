@@ -122,6 +122,10 @@ STATIC_URL = '/static/'
 sentry_sdk.init(
     # dsn=config('SENTRY_DSN'),
     dsn=os.environ['SENTRY_RELEASE'],
+    print("######################")
+    print(dsn)
+    print("######################")
+    # dsn=$SENTRY_RELEASE
     # dsn="https://4acffdc0554c4d44a80f6ab06e5c0d7b@o1114418.ingest.sentry.io/6145602",
     integrations=[DjangoIntegration()],
 

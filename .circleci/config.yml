@@ -36,7 +36,7 @@ jobs:
           command: echo ${MY_ENV_VAR}
       - run:
           name: Display environment variables
-          command: echo ${SENTRY_DSN}
+          command: echo ${SENTRY_RELEASE}
 
       - run:
           name: Run tests

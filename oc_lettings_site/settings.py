@@ -119,28 +119,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-try:
-    sentry_sdk.init(
-        # dsn=config('SENTRY_DSN'),
-        dsn=os.environ['SENTRY_DSN'],
-        # dsn=$SENTRY_RELEASE
-        # dsn="https://4acffdc0554c4d44a80f6ab06e5c0d7b@o1114418.ingest.sentry.io/6145602",
-        integrations=[DjangoIntegration()],
+sentry_sdk.init(
+    dsn=os.environ['SENTRY_DSN'],
+    # dsn="https://4acffdc0554c4d44a80f6ab06e5c0d7b@o1114418.ingest.sentry.io/6145602",
+    integrations=[DjangoIntegration()],
 
-        # Set traces_sample_rate to 1.0 to capture 100%
-        # of transactions for performance monitoring.
-        # We recommend adjusting this value in production,
-        traces_sample_rate=1.0,
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production,
+    traces_sample_rate=1.0,
 
-        # If you wish to associate users to errors (assuming you are using
-        # django.contrib.auth) you may enable sending PII data.
-        send_default_pii=True,
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
 
-        # By default the SDK will try to use the SENTRY_RELEASE
-        # environment variable, or infer a git commit
-        # SHA as release, however you may want to set
-        # something more human-readable.
-        # release="myapp@1.0.0",
-    )
-except sentry_sdk.utils.BadDsn:
-    pass
+    # By default the SDK will try to use the SENTRY_RELEASE
+    # environment variable, or infer a git commit
+    # SHA as release, however you may want to set
+    # something more human-readable.
+    # release="myapp@1.0.0",
+)

@@ -19,11 +19,6 @@ jobs:
       - checkout
       - python/install-packages:
           pkg-manager: pip
-      - save_cache:
-          paths:
-            - /cache
-          key: 
-            p13-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}
       - run:
           name: Run Linting
           command: flake8 --exclude=env,migrations
@@ -40,10 +35,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - restore_cache:
-          key:
-            p13-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}
-
       - python/install-packages:
           pkg-manager: pip
       - run:
@@ -95,7 +86,7 @@ workflows:
           filters:
             branches:
               only:
-                - pipeline_CI_CD
+                - main
           requires:
             - compile-linting-tests
       - deploy_to_Heroku:
@@ -103,7 +94,7 @@ workflows:
           filters:
             branches:
               only:
-                - pipeline_CI_CD
+                - main
           requires:
             - build_and_push_docker_image
            

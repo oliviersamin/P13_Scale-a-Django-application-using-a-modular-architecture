@@ -40,7 +40,7 @@ jobs:
       - run:
           name: build application image
           command:
-            docker build --build-arg SENTRY_DSN=$SENTRY_DSN -t $Docker_tag_image:$CIRCLE_SHA1 .
+            docker build -t $Docker_tag_image:$CIRCLE_SHA1 .
       - run:
           name: connection to DockerHub
           command:

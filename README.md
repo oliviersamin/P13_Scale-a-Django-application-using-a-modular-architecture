@@ -167,10 +167,10 @@ In this example if the compile-linting-tests job is successful, then the build_a
 The environment variables used in the actual config files are:  
     * Docker_tag_image : name of the DockerHub repository.  
 Example: if your dockerHub repo is accessible on the following url "https://hub.docker.com/repository/docker/<USER_NAME>/<REPO_NAME>" then Docker_tag_image = <USER_NAME>/<REPO_NAME>
-    * $Docker_username : username to connect to DockerHub
-    * $Docker_password : password to connect to DockerHub
-    * $HEROKU_APP_NAME : the name of the app you choose on Heroku, here this is oc-lettings-os
-    * $HEROKU_API_KEY  : the value to enter has been copied in the section 3 On Heroku with the command line `heroku authorizations:create`  
+    * $Docker_username : username to connect to DockerHub  # this variable is needed to connect to DockerHub
+    * $Docker_password : password to connect to DockerHub  # this variable is needed to connect to DockerHub
+    * $HEROKU_APP_NAME : the name of the app you choose on Heroku, here this is oc-lettings-os  # this variable is needed to access Heroku app to deploy
+    * $HEROKU_API_KEY  : the value to enter has been copied in the section 3 On Heroku with the command line `heroku authorizations:create`    # this variable is needed to connect to Heroku
 
 
 <a name="usage"></a>

@@ -116,6 +116,9 @@ Now that the accounts are created, let's detail how to set up the pipeline regar
 
 
 3. On Heroku: 
+* install the Heroku CLI on your computer
+* create an Heroku api key for production application using the CLI `heroku authorizations:create`
+* save the API KEY to use it for the environment variable of CircleCI
 * create a new pipeline 
 * in this pipeline create a new app in the production section
 * in this new app click on "Settings" --> "Reveal Config Vars"
@@ -167,6 +170,7 @@ Example: if your dockerHub repo is accessible on the following url "https://hub.
     * $Docker_username : username to connect to DockerHub
     * $Docker_password : password to connect to DockerHub
     * $HEROKU_APP_NAME : the name of the app you choose on Heroku, here this is oc-lettings-os
+    * $HEROKU_API_KEY  : the value to enter has been copied in the section 3 On Heroku with the command line `heroku authorizations:create`  
 
 
 <a name="usage"></a>

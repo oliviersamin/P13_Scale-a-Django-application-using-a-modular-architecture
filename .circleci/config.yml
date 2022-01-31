@@ -27,26 +27,12 @@ jobs:
       - run:
           name: Run Linting
           command: flake8 --exclude=env,migrations
-      - run:
-          name: "Setup custom environment variables"
-          command: echo 'export MY_ENV_VAR="FOO"' >> $BASH_ENV
-
-      - run:
-          name: "What was my custom environment variable?"
-          command: echo ${MY_ENV_VAR}
-      - run:
-          name: Display environment variables
-          command: echo ${SENTRY_RELEASE}
 
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: 
             pytest
-#      - run:
-#          name: show coverage
-#          command:
-#            coverage report
 
   build_and_push_docker_image:
     docker:

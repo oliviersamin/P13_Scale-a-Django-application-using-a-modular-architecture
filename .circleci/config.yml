@@ -1,0 +1,109 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
+  # Orb commands and jobs help you with common scripting around a language/tool
+  # so you dont have to copy and paste it everywhere.
+  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
+  python: circleci/python@1.5.0
+  heroku: circleci/heroku@1.2.6
+
+jobs:
+  compile-linting-tests:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - save_cache:
+          paths:
+            - /cache
+          key: 
+            p13-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          name: Run Linting
+          command: flake8 --exclude=env,migrations
+
+      - run:
+          name: Run tests
+          # This assumes pytest is installed via the install-package step above
+          command: 
+            pytest
+
+  build_and_push_docker_image:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          key:
+            p13-{{ arch }}-{{ .Branch }}-{{ checksum "requirements.txt" }}
+
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: build application image
+          command:
+            docker build -t $Docker_tag_image:$CIRCLE_SHA1 .
+      - run:
+          name: connection to DockerHub
+          command:
+            docker login --username=$Docker_username --password=$Docker_password
+      - run:
+          name: push application image to Docker Hub
+          command:
+            docker push $Docker_tag_image:$CIRCLE_SHA1
+
+  deploy_to_Heroku:
+    executor: heroku/default
+    steps:
+      - setup_remote_docker
+      - heroku/install
+      - checkout
+      - run:
+          name: reset the app folder
+          command:
+            heroku repo:reset -a $HEROKU_APP_NAME
+      - run:
+          name: login to Heroku Docker registery image
+          command:
+            heroku container:login 
+      - run:
+          name: push image to Heroku
+          command:
+            heroku container:push web -a $HEROKU_APP_NAME
+      - run:
+          name: Heroku release image
+          command:
+            heroku container:release web -a $HEROKU_APP_NAME
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  project_13: 
+    jobs:
+      - compile-linting-tests:          
+          context: Basic secured data
+
+      - build_and_push_docker_image:
+          context: Basic secured data
+          filters:
+            branches:
+              only:
+                - pipeline_CI_CD
+          requires:
+            - compile-linting-tests
+      - deploy_to_Heroku:
+          context: Basic secured data
+          filters:
+            branches:
+              only:
+                - pipeline_CI_CD
+          requires:
+            - build_and_push_docker_image
+           

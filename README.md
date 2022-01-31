@@ -175,7 +175,7 @@ Example: if your dockerHub repo is accessible on the following url "https://hub.
 1. Once the pipeline is set up, one may try to change something in the GitHub repo.  
    As soon as the change is validated in GitHub, the CI/CD pipeline is launched by CircleCI.
 
-2. Once the pipeline has been successfuly executed, a new docker image appears in DockerHub and a new release appears in Heroku.
+2. Once the pipeline has been successfully executed, a new docker image appears in DockerHub, and a new release appears in Heroku.
 
 3. To open the app on internet click on the 'open app' button of your Heroku application.  
    

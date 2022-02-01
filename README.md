@@ -129,6 +129,7 @@ Now that the accounts are created, let's detail how to set up the pipeline regar
 4. On GitHub:
 * create a new repository
 * clone the actual repo in your GitHub repository
+* check the Dockerfile, there must be a line declaring environment variable: ENV SENTRY_DSN=$SENTRY_DSN  # needed to set this variable into the Docker image
 
 5. On CircleCI:
 * Connect to CircleCI using via GitHub
@@ -171,6 +172,7 @@ Example: if your dockerHub repo is accessible on the following url "https://hub.
     * $Docker_password : password to connect to DockerHub  # this variable is needed to connect to DockerHub
     * $HEROKU_APP_NAME : the name of the app you choose on Heroku, here this is oc-lettings-os  # this variable is needed to access Heroku app to deploy
     * $HEROKU_API_KEY  : the value to enter has been copied in the section 3 On Heroku with the command line `heroku authorizations:create`    # this variable is needed to connect to Heroku
+    * $SENRTY_DSN      : same value enteres on Heroku (section 3)  # needed to setup the env variable into the Docker image. 
 
 
 <a name="usage"></a>
